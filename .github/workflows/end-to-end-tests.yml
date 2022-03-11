@@ -114,8 +114,8 @@ jobs:
         uses: ForAllSecure/mapi-action@v1
         with:
           mapi-token: ${{ secrets.MAPI_TOKEN }}
-          api-url: http://localhost:8000 # <--------------------------- UPDATE THIS
-          api-spec: your-openapi-spec-or-postman-collection.json # <--- UPDATE THIS
+          api-url: http://localhost:8889
+          api-spec: ./src/specifications/wordpress_v2_swagger.yaml
 
       - name: Run E2E tests
         run: npm run test:e2e

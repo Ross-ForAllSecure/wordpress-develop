@@ -48,7 +48,7 @@ jobs:
     name: E2E Tests
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    if: ${{ github.repository == 'WordPress/wordpress-develop' || github.event_name == 'pull_request' }}
+    # if: ${{ github.repository == 'WordPress/wordpress-develop' || github.event_name == 'pull_request' }}
 
     steps:
       - name: Configure environment variables
@@ -109,6 +109,13 @@ jobs:
 
       - name: Install WordPress
         run: npm run env:install
+
+      - name: Run Mayhem for API to check for vulnerabilities
+        uses: ForAllSecure/mapi-action@v1
+        with:
+          mapi-token: ${{ secrets.MAPI_TOKEN }}
+          api-url: http://localhost:8000 # <--------------------------- UPDATE THIS
+          api-spec: your-openapi-spec-or-postman-collection.json # <--- UPDATE THIS
 
       - name: Run E2E tests
         run: npm run test:e2e
